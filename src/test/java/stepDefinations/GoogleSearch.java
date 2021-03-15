@@ -16,6 +16,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import pageFactory.GoogleHome_PF;
+import util.utilityFunctions;
 
 public class GoogleSearch {
 	
@@ -25,14 +26,16 @@ public class GoogleSearch {
 	@Given("User is on Google Home Page")
 	public void NavigateToApplication() 
 	{
-		//System.out.println("System Project Path - " + System.getProperty("user.dir"));
-		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+ "/src/test/resources/drivers/chromedriver.exe");
+		String driverPath=utilityFunctions.loadFrameworkProperties().getProperty("DriverPath");
+		
+		//System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+ "/src/test/resources/drivers/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", driverPath);
 		
 		driver =new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
-		driver.navigate().to("https://www.google.com/");
+		driver.navigate().to(utilityFunctions.loadApplicationProperties().getProperty("ApplicationURL"));
 		
 	}
 	
